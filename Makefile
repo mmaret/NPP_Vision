@@ -58,7 +58,7 @@ $(TARGET): $(SRC) $(BIN_DIR)
 
 # Rule for running the application
 run: $(TARGET)
-	./$(TARGET) --input $(DATA_DIR)/Lena.png --output $(DATA_DIR)/Lena_out.png
+	./$(TARGET) --input $(DATA_DIR)/Lena.png --output $(DATA_DIR)/Lena_out.pgm
 
 # Clean up
 clean:

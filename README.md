@@ -8,6 +8,14 @@ It could be used for:
 * cleaning dust after an image scan
 * ...
 
+Before:
+
+![Before](data/morpion.png)
+
+After:
+
+![After](data/morpion_filtered.png)
+
 ## Code Organization
 
 ```bin/```
@@ -17,13 +25,13 @@ This folder hold compilation artifacts
 Set of sample images
 
 ```lib/```
-Any libraries that are not installed via the Operating System-specific package manager should be placed here, so that it is easier for inclusion/linking.
+Contains Cuda-sample library code as a git submodule
 
 ```src/```
-The source code should be placed here in a hierarchical fashion, as appropriate.
+The source code
 
 ```Makefile```
-There should be some rudimentary scripts for building your project's code in an automatic fashion.
+Build System
 
 ## Key Concepts
 
@@ -35,7 +43,7 @@ Linux
 
 ## Supported CPU Architecture
 
-x86_64, ppc64le, armv7l
+x86_64
 
 ## CUDA APIs involved
 
@@ -66,16 +74,14 @@ $ make
 After building the project, you can run the program using the following command:
 
 ```bash
-Copy code
 make run
 ```
 
-This command will execute the compiled binary, rotating the input image (Lena.png) by 45 degrees, and save the result as Lena_rotated.png in the data/ directory.
+This command will execute the compiled binary, filter the input image (Lena.png), and save the result as Lena_filtered.pgm in the data/ directory.
 
 If you wish to run the binary directly with custom input/output files, you can use:
 
 ```bash
-- Copy code
 ./bin/imageDetailFilterNPP --input data/Lena.png --output data/out.png
 ```
 
@@ -84,7 +90,6 @@ To clean up the compiled binaries and other generated files, run:
 
 
 ```bash
-- Copy code
 make clean
 ```
 
