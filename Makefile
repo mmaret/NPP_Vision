@@ -34,7 +34,7 @@
 # Define the compiler and flags
 NVCC = nvcc
 CXX = g++
-FLAGS += `pkg-config --cflags --libs cuda cudart nppc nppif nppisu nppim` -Ilib/cuda-samples/Common/UtilNPP -Ilib/cuda-samples/Common -lfreeimage -g
+FLAGS += `pkg-config --cflags --libs cuda cudart nppc nppif nppisu nppim nppial` -Ilib/cuda-samples/Common/UtilNPP -Ilib/cuda-samples/Common -lfreeimage -g
 
 # Define directories
 SRC_DIR = src

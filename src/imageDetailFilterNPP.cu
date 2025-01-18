@@ -158,6 +158,7 @@ int main(int argc, char* argv[]) {
 
     NppiPoint oAnchor = {oMaskSize.width / 2, oMaskSize.height / 2};
 
+    // Remove White details
     NPP_CHECK_NPP(nppiErode_8u_C1R(oDeviceSrc.data(), oDeviceSrc.pitch(),
                                    oDeviceTmp.data(), oDeviceTmp.pitch(),
                                    oSizeROI, dMask, oMaskSize, oAnchor));
@@ -165,6 +166,17 @@ int main(int argc, char* argv[]) {
                                     oDeviceDst.data(), oDeviceDst.pitch(),
                                     oSizeROI, dMask, oMaskSize, oAnchor));
     cudaDeviceSynchronize();
+    // Remove Black details
+    nppiNot_8u_C1R(oDeviceDst.data(), oDeviceDst.pitch(), oDeviceTmp.data(),
+                   oDeviceTmp.pitch(), oSizeROI);
+    NPP_CHECK_NPP(nppiErode_8u_C1R(oDeviceTmp.data(), oDeviceTmp.pitch(),
+                                   oDeviceDst.data(), oDeviceDst.pitch(),
+                                   oSizeROI, dMask, oMaskSize, oAnchor));
+    NPP_CHECK_NPP(nppiDilate_8u_C1R(oDeviceDst.data(), oDeviceDst.pitch(),
+                                    oDeviceTmp.data(), oDeviceTmp.pitch(),
+                                    oSizeROI, dMask, oMaskSize, oAnchor));
+    nppiNot_8u_C1R(oDeviceTmp.data(), oDeviceTmp.pitch(), oDeviceDst.data(),
+                   oDeviceDst.pitch(), oSizeROI);
 
     // declare a host image for the result
     npp::ImageCPU_8u_C1 oHostDst(oDeviceDst.size());
